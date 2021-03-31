@@ -25,9 +25,11 @@ unsigned char jam, menit, once;
 // setup function
 void setup()
 {
+  unsigned char detik;
   Serial.begin(9600);
   serialPlayer.begin(9600);
   player.begin(serialPlayer);
+  time.getTime(jam, menit, detik);
 }
 
 // main fuction
@@ -35,7 +37,6 @@ void loop()
 {
   //clock
   unsigned char detik;
-  time.getTime(jam, menit, detik);
   //cek jadwal
   if (detik == 0 && once == 0)
   {
@@ -85,4 +86,5 @@ void loop()
   {
     once = 0;
   }
+  time.getTime(jam, menit, detik);
 }
