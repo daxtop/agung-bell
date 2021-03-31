@@ -21,13 +21,18 @@ Rtc time = Rtc();
 
 //variable
 unsigned char jam, menit, once;
+const int buzer = 13;
 
 // setup function
 void setup()
 {
   unsigned char detik;
+  pinMode(buzer,OUTPUT);
+  digitalWrite(buzer,HIGH);
   Serial.begin(9600);
   serialPlayer.begin(9600);
+  delay(500);
+  digitalWrite(buzer,LOW);
   player.begin(serialPlayer);
   time.getTime(jam, menit, detik);
 }
