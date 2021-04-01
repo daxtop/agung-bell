@@ -208,13 +208,13 @@ void serialEvent()
           break;
         }
         index++;
-        jam = input_serial[index] * 10;
+        jam = (input_serial[index] - '0') * 10;
         index++;
-        jam += input_serial[index];
+        jam += (input_serial[index] - '0');
         index++;
-        menit = input_serial[index] * 10;
+        menit = (input_serial[index] - '0') * 10;
         index++;
-        menit += input_serial[index];
+        menit += (input_serial[index] - '0');
         switch (i)
         {
         case 0:
@@ -250,13 +250,13 @@ void serialEvent()
         }
 
         index++;
-        music = input_serial[index] * 1000;
+        music = (input_serial[index] - '0') * 1000;
         index++;
-        music += input_serial[index] * 100;
+        music += (input_serial[index] - '0') * 100;
         index++;
-        music += input_serial[index] * 10;
+        music += (input_serial[index] - '0') * 10;
         index++;
-        music += input_serial[index];
+        music += (input_serial[index] - '0');
         switch (i)
         {
         case 0:
