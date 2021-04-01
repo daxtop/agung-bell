@@ -31,16 +31,16 @@ class TartilViewModel extends BaseViewModel {
     "00:00"
   ];
   List<String> music = [
-    "00:00",
-    "00:00",
-    "00:00",
-    "00:00",
-    "00:00",
-    "00:00",
-    "00:00",
-    "00:00",
-    "00:00",
-    "00:00"
+    "0000",
+    "0000",
+    "0000",
+    "0000",
+    "0000",
+    "0000",
+    "0000",
+    "0000",
+    "0000",
+    "0000"
   ];
   List<bool> flag = [
     false,
@@ -85,9 +85,16 @@ class TartilViewModel extends BaseViewModel {
     // for (var i = 0; i < 5; i++) {
     //   kirim += tartil[i].replaceAll(new RegExp(r':'), '');
     // }
-    bluetooth.isConnected() == false
-        ? bluetooth.hubungkan(context)
-        : bluetooth.setting(context, "%X", kirim);
+    for (var i = 0; i < 10; i++) {
+      flag[i] == true ? kirim += 'Y' : kirim += 'N';
+      kirim += jam[i].substring(0, 2);
+      kirim += jam[i].substring(3);
+      kirim += music[i];
+    }
+    print(kirim);
+    // bluetooth.isConnected() == false
+    //     ? bluetooth.hubungkan(context)
+    //     : bluetooth.setting(context, "%X", kirim);
   }
 
   init(BluetoothDriver blue) async {

@@ -1,21 +1,18 @@
 import 'dart:ui';
 
-import 'package:bell/providers/tartil_view_model.dart';
+import 'package:bell/providers/alarm_view_model.dart';
 import 'package:bell/services/btHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class Tartil extends StatefulWidget {
-  Tartil({Key key, this.blue}) : super(key: key);
+class Alarm extends StatefulWidget {
+  Alarm({Key key, this.blue}) : super(key: key);
   final BluetoothDriver blue;
   @override
-  _TartilState createState() => _TartilState();
+  _AlarmState createState() => _AlarmState();
 }
 
-//seting sesuai init terahir
-// bila null return terahir
-
-class _TartilState extends State<Tartil> {
+class _AlarmState extends State<Alarm> {
   Future<TimeOfDay> setJam(var contex, TimeOfDay initTime) async {
     TimeOfDay hasil = await showTimePicker(
       context: context,
