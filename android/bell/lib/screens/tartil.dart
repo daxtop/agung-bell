@@ -58,7 +58,7 @@ class _TartilState extends State<Tartil> {
                 child: Container(
                   margin: EdgeInsets.only(
                     top: 3,
-                    bottom: 20,
+                    bottom: 3,
                     left: 3,
                     right: 3,
                   ),

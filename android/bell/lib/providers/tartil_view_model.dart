@@ -6,13 +6,57 @@ import '../services/btHelper.dart';
 import 'memori.dart';
 
 class TartilViewModel extends BaseViewModel {
-  final sholat = ['Subuh', 'Dzuhur', 'Ashar', "Maghrib", "Isya"];
-  List<String> tartil = ["00", "00", "00", "00", "00"];
-  List<bool> flag = [false, false, false, false, false];
+  final bell = [
+    'Bell 01',
+    'Bell 02',
+    'Bell 03',
+    "Bell 04",
+    "Bell 05",
+    'Bell 06',
+    'Bell 07',
+    'Bell 08',
+    "Bell 09",
+    "Bell 10"
+  ];
+  List<String> jam = [
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00"
+  ];
+  List<String> music = [
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00"
+  ];
+  List<bool> flag = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
   BluetoothDriver bluetooth;
   Memori _eprom = new Memori();
 
-  get warnaAppBar => Colors.pink;
   get warnaBackground => Colors.pink[100];
   get warnaJudul => Colors.redAccent[700];
   get warnaOdd => Colors.pink[50];
@@ -48,38 +92,42 @@ class TartilViewModel extends BaseViewModel {
 
   init(BluetoothDriver blue) async {
     this.bluetooth = blue;
-    for (var i = 0; i < 5; i++) {
-      tartil[i] = await _eprom.getString("tartil" + i.toString()) ?? "00";
-      if (tartil[i] == '') {
-        tartil[i] = '00';
+    for (var i = 0; i < 10; i++) {
+      jam[i] = await _eprom.getString("jam" + i.toString()) ?? "00:00";
+      if (jam[i] == '') {
+        jam[i] = '00:00';
       }
-      flag[i] = await _eprom.getBool("flagtartil" + i.toString()) ?? false;
+      music[i] = await _eprom.getString("music" + i.toString()) ?? "0000";
+      if (music[i] == '') {
+        music[i] = '0000';
+      }
+      flag[i] = await _eprom.getBool("flag" + i.toString()) ?? false;
     }
     notifyListeners();
   }
 
   Future<void> save(int index, TimeOfDay waktu) async {
-    tartil[index] =
+    jam[index] =
         waktu.hour < 10 ? '0' + waktu.hour.toString() : waktu.hour.toString();
-    tartil[index] += ':';
-    tartil[index] += waktu.minute < 10
+    jam[index] += ':';
+    jam[index] += waktu.minute < 10
         ? '0' + waktu.minute.toString()
         : waktu.minute.toString();
-    await _eprom.setString("tartil" + index.toString(), tartil[index]);
+    await _eprom.setString("jam" + index.toString(), jam[index]);
     notifyListeners();
     // await _eprom.setInt("koreksiJadwal" + i.toString(), 0);
   }
 
   Future<void> enable(int index, bool value) async {
     flag[index] = value;
-    await _eprom.setBool("flagtartil" + index.toString(), value);
+    await _eprom.setBool("flag" + index.toString(), value);
     notifyListeners();
   }
 
   TimeOfDay getInit(int index) {
-    String jam = tartil[index].substring(0, 2);
-    String menit = tartil[index].substring(3);
-    TimeOfDay init = TimeOfDay(hour: int.parse(jam), minute: int.parse(menit));
+    String hour = jam[index].substring(0, 2);
+    String menit = jam[index].substring(3);
+    TimeOfDay init = TimeOfDay(hour: int.parse(hour), minute: int.parse(menit));
     return init;
   }
 }
