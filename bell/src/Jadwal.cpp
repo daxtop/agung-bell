@@ -13,12 +13,12 @@ bool Jadwal::onTime(unsigned char jam, unsigned char menit)
         return false;
     }
 }
-void Jadwal::setPlay(unsigned char ply)
+void Jadwal::setPlay(int ply)
 {
     play = ply;
-    EEPROM.write(this->addr + 3, ply);
+    this->writeIntIntoEEPROM(this->addr + 3, ply);
 }
-unsigned char Jadwal::getPlay()
+int Jadwal::getPlay()
 {
     return play;
 }
@@ -70,7 +70,7 @@ Jadwal::Jadwal(int addr)
     {
         enable = false;
     }
-    play = EEPROM.read(this->addr + 3);
+    play = readIntFromEEPROM(this->addr + 3);
 }
 
 Jadwal::~Jadwal()

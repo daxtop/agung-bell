@@ -9,7 +9,7 @@ private:
     int time;
     int addr;
     bool enable;
-    unsigned char play;
+    int play;
 
 public:
     Jadwal(int addr);
@@ -20,8 +20,8 @@ public:
     int readIntFromEEPROM(int address);
     bool isEnable();
     void setEnable(bool en);
-    void setPlay(unsigned char ply);
-    unsigned char getPlay();
+    void setPlay(int ply);
+    int getPlay();
 };
 
 #endif // Jadwal_h

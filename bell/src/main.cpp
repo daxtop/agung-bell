@@ -4,19 +4,38 @@
 #include "Rtc.h"
 #include <SoftwareSerial.h>
 
+
+// ATMEL ATMEGA8 & 168 / ARDUINO
+//
+//                  +-\/-+
+//            PC6  1|    |28  PC5 (AI 5)
+//      (D 0) PD0  2|    |27  PC4 (AI 4)
+//      (D 1) PD1  3|    |26  PC3 (AI 3)
+//      (D 2) PD2  4|    |25  PC2 (AI 2)
+// PWM+ (D 3) PD3  5|    |24  PC1 (AI 1)
+//      (D 4) PD4  6|    |23  PC0 (AI 0)
+//            VCC  7|    |22  GND
+//            GND  8|    |21  AREF
+//            PB6  9|    |20  AVCC
+//            PB7 10|    |19  PB5 (D 13)
+// PWM+ (D 5) PD5 11|    |18  PB4 (D 12)
+// PWM+ (D 6) PD6 12|    |17  PB3 (D 11) PWM
+//      (D 7) PD7 13|    |16  PB2 (D 10) PWM
+//      (D 8) PB0 14|    |15  PB1 (D 9) PWM
+//                  +----+
 // class init
 DFRobotDFPlayerMini player = DFRobotDFPlayerMini();
-SoftwareSerial serialPlayer(2, 3); // RX, TX
+SoftwareSerial serialPlayer(4, 3); // RX, TX
 Jadwal waktu01 = Jadwal(1);
-Jadwal waktu02 = Jadwal(6);
-Jadwal waktu03 = Jadwal(11);
-Jadwal waktu04 = Jadwal(16);
-Jadwal waktu05 = Jadwal(21);
-Jadwal waktu06 = Jadwal(26);
-Jadwal waktu07 = Jadwal(31);
-Jadwal waktu08 = Jadwal(36);
-Jadwal waktu09 = Jadwal(41);
-Jadwal waktu10 = Jadwal(46);
+Jadwal waktu02 = Jadwal(11);
+Jadwal waktu03 = Jadwal(21);
+Jadwal waktu04 = Jadwal(31);
+Jadwal waktu05 = Jadwal(41);
+Jadwal waktu06 = Jadwal(51);
+Jadwal waktu07 = Jadwal(61);
+Jadwal waktu08 = Jadwal(71);
+Jadwal waktu09 = Jadwal(81);
+Jadwal waktu10 = Jadwal(91);
 Rtc time = Rtc();
 
 //variable
@@ -36,14 +55,28 @@ void setup()
   digitalWrite(buzer, LOW);
   player.begin(serialPlayer);
   time.getTime(jam, menit, detik);
+  delay(2000);
+  player.play(1);
 
   Serial.print("AT+NAME");
   Serial.println("bell otomatis");
+
+  // waktu01.setTime(1,30);// = (1);
+  // waktu02.setTime(2,30);// = (11);
+  // waktu03.setTime(3,30);// = (21);
+  // waktu04.setTime(4,30);// = (31);
+  // waktu05.setTime(5,30);// = (41);
+  // waktu06.setTime(6,30);// = (51);
+  // waktu07.setTime(7,30);// = (61);
+  // waktu08.setTime(8,30);// = (71);
+  // waktu09.setTime(9,30);// = (81);
+  // waktu10.setTime(10,30);// = (91);
 }
 
 // main fuction
 void loop()
 {
+
   //clock
   unsigned char detik;
   //cek jadwal
@@ -96,6 +129,8 @@ void loop()
     once = 0;
   }
   time.getTime(jam, menit, detik);
+  // Serial.printf("Jam = %d:%d:%d \n", jam, menit, detik);
+  // delay(500);
 }
 
 const PROGMEM char bloothtCommand[] = {
