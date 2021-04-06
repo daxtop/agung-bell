@@ -4,7 +4,6 @@
 #include "Rtc.h"
 #include <SoftwareSerial.h>
 
-
 // ATMEL ATMEGA8 & 168 / ARDUINO
 //
 //                  +-\/-+
@@ -59,18 +58,44 @@ void setup()
   player.play(1);
 
   Serial.print("AT+NAME");
-  Serial.println("bell otomatis");
+  Serial.println("BELL OTOMATIS");
 
-  // waktu01.setTime(1,30);// = (1);
-  // waktu02.setTime(2,30);// = (11);
-  // waktu03.setTime(3,30);// = (21);
-  // waktu04.setTime(4,30);// = (31);
-  // waktu05.setTime(5,30);// = (41);
-  // waktu06.setTime(6,30);// = (51);
-  // waktu07.setTime(7,30);// = (61);
-  // waktu08.setTime(8,30);// = (71);
-  // waktu09.setTime(9,30);// = (81);
-  // waktu10.setTime(10,30);// = (91);
+  // waktu01.setTime(19,35);// = (1);
+  // waktu02.setTime(19,36);// = (11);
+  // waktu03.setTime(19,37);// = (21);
+  // waktu04.setTime(19,38);// = (31);
+  // waktu05.setTime(19,39);// = (41);
+  // waktu06.setTime(19,40);// = (51);
+  // waktu07.setTime(19,41);// = (61);
+  // waktu08.setTime(19,42);// = (71);
+  // waktu09.setTime(19,43);// = (81);
+  // waktu10.setTime(10,44);// = (91);
+
+  // waktu01.setPlay(1);// = (1);
+  // waktu02.setPlay(2);// = (11);
+  // waktu03.setPlay(3);// = (21);
+  // waktu04.setPlay(4);// = (31);
+  // waktu05.setPlay(5);// = (41);
+  // waktu06.setPlay(6);// = (51);
+  // waktu07.setPlay(7);// = (61);
+  // waktu08.setPlay(8);// = (71);
+  // waktu09.setPlay(9);// = (81);
+  // waktu10.setPlay(10);// = (91);
+
+  // waktu01.setEnable(true);// = (1);
+  // waktu02.setEnable(true);// = (11);
+  // waktu03.setEnable(true);// = (21);
+  // waktu04.setEnable(true);// = (31);
+  // waktu05.setEnable(true);// = (41);
+  // waktu06.setEnable(true);// = (51);
+  // waktu07.setEnable(true);// = (61);
+  // waktu08.setEnable(true);// = (71);
+  // waktu09.setEnable(true);// = (81);
+  // waktu10.setEnable(true);// = (91);
+
+  // Serial.println("Finish");
+  player.volume(10);
+  // time.setTime(19,34,40);
 }
 
 // main fuction
@@ -137,13 +162,15 @@ const PROGMEM char bloothtCommand[] = {
     'J',
     'S',
     'P',
+    'T',
 };
 
 #define command_start 1
 #define set_jam 2
 #define set_jadwal 3
 #define set_play 4
-#define command_end 5
+#define set_stop 5
+#define command_end 6
 volatile static byte command;
 
 void serialEvent()
@@ -165,7 +192,7 @@ void serialEvent()
     {
       if (input_serial[0] == '%')
       {
-        for (uint8_t cmd = 0; cmd < 3; cmd++)
+        for (uint8_t cmd = 0; cmd < 4; cmd++)
         {
           char lookupCmd = pgm_read_byte_near(bloothtCommand + cmd);
           if (lookupCmd == input_serial[1])
@@ -327,13 +354,26 @@ void serialEvent()
         }
       }
 
-      Serial.print("SetTrkm\n");
+      Serial.print("Setting\n");
     }
     else if (command == set_play)
     { //ok
       //%P
+      int play = (input_serial[0] - '0') * 1000;
+      play += (input_serial[1] - '0') * 100;
+      play += (input_serial[2] - '0') * 10;
+      play += input_serial[3] - '0';
+
+      player.play(play);
       command = command_end;
-      Serial.print("SetBrns\n");
+      Serial.print("Play\n");
+    }
+    else if (command == set_stop)
+    { //ok
+      //%P
+      player.stop();
+      command = command_end;
+      Serial.print("Stop\n");
     }
   }
 

@@ -256,7 +256,7 @@ class _AlarmState extends State<Alarm> {
                                   side: BorderSide(color: Colors.pink[600])),
                               // color: Color.fromRGBO(0, 160, 227, 1))),
                               onPressed: () {
-                                model.kirim(context, widget.blue);
+                                model.kirim(context);
                               },
                               padding: EdgeInsets.all(10.0),
                               color:

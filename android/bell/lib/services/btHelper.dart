@@ -7,38 +7,21 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 class BluetoothDriver {
   final command = [
     "OKJ\n", //jam
-    "OKI\n", //Iqomah
+    "OKS\n", //Iqomah
+    "OKP\n", //tarhim
     "OKT\n", //tarhim
-    "OKB\n", //brightness
-    "OKF\n", //offsite
-    "OKX\n", //fix
-    "OKK\n", //kota
-    "OKA\n", //adzan
-    "OKW\n", //mp3
-    "OKS\n",
   ];
   final cmdOK = [
     "SINKRON WAKTU SUKSES",
-    "SET IQOMAH SUKSES",
-    "SET TARHIM SUKSES",
-    "SET BRIGTNES SUKSES",
-    "SET OFFSITE SUKSES",
-    "SET FIX SUKSES",
-    "SET KOTA SUKSES",
-    "SET TIMEOUT ADZAN SUKSES",
-    "SUKSES",
-    "SUKSES",
+    "SETTING SUKSES",
+    "PLAY SUKSES",
+    "STOP SUKSES",
   ];
   final datafinish = [
     "SetTime\n",
-    "SetIqom\n",
-    "SetTrkm\n",
-    "SetBrns\n",
-    "SetOffs\n",
-    "SetFixx\n", //SetFixx\n"
-    "SetKoor\n",
-    "SetAlrm\n",
-    "SetPlay\n",
+    "Setting\n",
+    "Play\n",
+    "Stop\n",
   ];
 //boolean
   bool isConnecting = true;

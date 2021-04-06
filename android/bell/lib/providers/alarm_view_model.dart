@@ -64,7 +64,7 @@ class TartilViewModel extends BaseViewModel {
 
   // get getflag => null;
 
-  void kirim(BuildContext context, BluetoothDriver x) async {
+  void kirim(BuildContext context) async {
     String kirim = '';
     // kirim += value[0] < 0 ? '0' : '1';
     // kirim += value[0].abs().toString();
@@ -92,9 +92,9 @@ class TartilViewModel extends BaseViewModel {
       kirim += music[i];
     }
     print(kirim);
-    // bluetooth.isConnected() == false
-    //     ? bluetooth.hubungkan(context)
-    //     : bluetooth.setting(context, "%X", kirim);
+    bluetooth.isConnected() == false
+        ? bluetooth.hubungkan(context)
+        : bluetooth.setting(context, "%S", kirim);
   }
 
   init(BluetoothDriver blue) async {

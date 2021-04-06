@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bell/providers/home_view_model.dart';
 import 'package:bell/screens/alarm.dart';
+import 'package:bell/screens/play.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -106,7 +107,9 @@ class _HomeState extends State<Home> {
                   Alarm(
                     blue: model.btSerial,
                   ),
-                  Icon(Icons.directions_car),
+                  Play(
+                    blue: model.btSerial,
+                  ),
                 ],
               ),
             ),
