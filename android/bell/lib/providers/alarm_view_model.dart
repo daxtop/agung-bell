@@ -57,10 +57,9 @@ class TartilViewModel extends BaseViewModel {
   BluetoothDriver bluetooth;
   Memori _eprom = new Memori();
 
-  get warnaBackground => Colors.pink[100];
-  get warnaJudul => Colors.redAccent[700];
-  get warnaOdd => Colors.pink[50];
-  get warnaEvent => Colors.pink[100];
+  get warnaBackground => Colors.white;
+  get warnaOdd => Colors.amber[50];
+  get warnaEvent => Colors.amber[100];
 
   // get getflag => null;
 
@@ -121,6 +120,13 @@ class TartilViewModel extends BaseViewModel {
         ? '0' + waktu.minute.toString()
         : waktu.minute.toString();
     await _eprom.setString("jam" + index.toString(), jam[index]);
+    notifyListeners();
+    // await _eprom.setInt("koreksiJadwal" + i.toString(), 0);
+  }
+
+  Future<void> saveMusic(String value, int index) async {
+    await _eprom.setString("music" + index.toString(), value);
+    music[index] = value;
     notifyListeners();
     // await _eprom.setInt("koreksiJadwal" + i.toString(), 0);
   }

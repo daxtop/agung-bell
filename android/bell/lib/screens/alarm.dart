@@ -185,7 +185,19 @@ class _AlarmState extends State<Alarm> {
                                       ),
                                       GestureDetector(
                                         onTap: () async {
-                                          // model.save(index);
+                                          showDialog<void>(
+                                              context: context,
+                                              builder: (context) => MyDialog(
+                                                    value: int.parse(
+                                                        model.music[index]),
+                                                    onClick: (value) {
+                                                      model.saveMusic(
+                                                          value, index);
+                                                    },
+                                                    onPlay: () {
+                                                      print("pilih play");
+                                                    },
+                                                  ));
                                         },
                                         child: Row(
                                           children: [
@@ -276,5 +288,90 @@ class _AlarmState extends State<Alarm> {
             );
           });
     });
+  }
+}
+
+class MyDialog extends StatefulWidget {
+  MyDialog({this.value, this.onClick, this.onPlay});
+  final int value;
+  final Function onClick;
+  final Function onPlay;
+
+  @override
+  _MyDialogState createState() => new _MyDialogState();
+}
+
+class _MyDialogState extends State<MyDialog> {
+  int _selected;
+
+  @override
+  void initState() {
+    _selected = widget.value;
+    super.initState();
+  }
+
+  // Color _c = Colors.redAccent;
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text("Pilih lagu"),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('CANCEL'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: const Text('PLAY'),
+          onPressed: () {
+            widget.onPlay();
+          },
+        ),
+        TextButton(
+          child: const Text('OK'),
+          onPressed: () {
+            widget.onClick(_selected.toString().padLeft(4, '0'));
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+      content: SingleChildScrollView(
+        child: Container(
+          width: double.maxFinite,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Divider(),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.4,
+                ),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 10000,
+                    itemBuilder: (BuildContext context, int index) {
+                      return RadioListTile(
+                          title:
+                              Text(index.toString().padLeft(4, '0') + ".mp3"),
+                          value: index,
+                          groupValue: _selected,
+                          selected: index == _selected ? true : false,
+                          onChanged: (value) {
+                            setState(() {
+                              index = value;
+                              _selected = index;
+                            });
+                          });
+                    }),
+              ),
+              Divider(),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
