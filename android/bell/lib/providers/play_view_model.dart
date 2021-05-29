@@ -7,6 +7,12 @@ import '../services/btHelper.dart';
 
 class PlayViewModel extends BaseViewModel {
   BluetoothDriver bluetooth;
+
+  get warnaBackground => Colors.white;
+
+  get warnaOdd => Colors.amber[50];
+
+  get warnaEvent => Colors.amber[100];
   init(BluetoothDriver blue) async {
     this.bluetooth = blue;
   }

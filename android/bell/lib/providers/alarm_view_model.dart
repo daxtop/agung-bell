@@ -90,7 +90,7 @@ class TartilViewModel extends BaseViewModel {
       kirim += jam[i].substring(3);
       kirim += music[i];
     }
-    print(kirim);
+    // print(kirim);
     bluetooth.isConnected() == false
         ? bluetooth.hubungkan(context)
         : bluetooth.setting(context, "%S", kirim);
